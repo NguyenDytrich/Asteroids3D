@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c0akg10qp87to"]
+
+[ext_resource type="Shader" path="res://asteroid_vertex_shader.gdshader" id="1_etk0w"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4oacp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hqw0q"]
+noise = SubResource("FastNoiseLite_4oacp")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_etk0w")
+shader_parameter/height_multiplier = 2.605
+shader_parameter/noise_sample_size = 0.08
+shader_parameter/asteroid_color = Color(0.584527, 0.389755, 0.221391, 1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_hqw0q")
