@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://5rselnx7vhe5"]
+
+[ext_resource type="Script" path="res://Asteroid.gd" id="1_htsa2"]
+[ext_resource type="Shader" path="res://asteroid_shader.gdshader" id="2_415y5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_psttn"]
+radius = 0.44348
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_go8uv"]
+resource_local_to_scene = true
+seed = -690
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_210id"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_go8uv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vkpk"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_415y5")
+shader_parameter/height_multiplier = -0.28
+shader_parameter/noise_sample_size = 0.25
+shader_parameter/asteroid_color = Color(0.866667, 0.407843, 0.231373, 1)
+shader_parameter/cuts = 3
+shader_parameter/wrap = -0.264
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/specular_map = Color(1, 1, 1, 1)
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_210id")
+
+[sub_resource type="SphereMesh" id="SphereMesh_7q1m3"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_1vkpk")
+
+[node name="Asteroid" type="RigidBody3D"]
+script = ExtResource("1_htsa2")
+noise_seed = -690
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_psttn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_7q1m3")

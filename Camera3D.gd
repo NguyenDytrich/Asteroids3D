@@ -28,7 +28,6 @@ func get_camera_rotation(d: float):
 func _process(delta):
 	var distance = (global_position - marker.global_position).length()
 
-	print(distance)
 	var marker_basis = Basis(marker.global_transform.basis)
 	# TODO:
 	# Calculate the difference between the angles of this and marker, then adjust speed

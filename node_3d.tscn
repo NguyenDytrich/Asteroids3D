@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8uwreb6p7q7t"]
+[gd_scene load_steps=10 format=3 uid="uid://b8uwreb6p7q7t"]
 
 [ext_resource type="PrismMesh" uid="uid://dhx02jtjgjej3" path="res://ship_mesh.tres" id="1_egssx"]
 [ext_resource type="Script" path="res://SpaceShip.gd" id="1_tqb83"]
 [ext_resource type="Script" path="res://Camera3D.gd" id="1_ypfkj"]
-[ext_resource type="Script" path="res://Asteroid.gd" id="4_kii4b"]
-[ext_resource type="Shader" path="res://asteroid_vertex_shader.gdshader" id="4_s7lau"]
+[ext_resource type="Texture2D" uid="uid://g4qsusvti1nm" path="res://reticle.png" id="2_4xnif"]
+[ext_resource type="PackedScene" uid="uid://c1y23e6o76eos" path="res://asteroid_impact_particles.tscn" id="2_mxf7q"]
+[ext_resource type="Script" path="res://Spawner.gd" id="6_oqd8v"]
+[ext_resource type="Script" path="res://HitReticle.gd" id="7_2w2p8"]
 
 [sub_resource type="Environment" id="Environment_ne660"]
 background_mode = 1
@@ -14,27 +16,6 @@ ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.25
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vtxrg"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4oacp"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hqw0q"]
-noise = SubResource("FastNoiseLite_4oacp")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3r181"]
-render_priority = 0
-shader = ExtResource("4_s7lau")
-shader_parameter/height_multiplier = 2.605
-shader_parameter/noise_sample_size = 0.08
-shader_parameter/asteroid_color = Color(0.584527, 0.389755, 0.221391, 1)
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_hqw0q")
-
-[sub_resource type="SphereMesh" id="SphereMesh_btihd"]
-material = SubResource("ShaderMaterial_3r181")
-radius = 5.0
-height = 10.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_uw3eg"]
-radius = 5.0
 
 [node name="Node3D" type="Node3D"]
 
@@ -47,8 +28,11 @@ marker = NodePath("../SpaceShip/SpringArm3D/Marker3D")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
 transform = Transform3D(-1, -6.18172e-08, -6.18172e-08, 2.26267e-08, -0.866025, 0.5, -8.44439e-08, 0.5, 0.866026, 5.24537e-07, 3.0018, -5.40733)
 
+[node name="CPUParticles3D" parent="." instance=ExtResource("2_mxf7q")]
+
 [node name="SpaceShip" type="CharacterBody3D" parent="."]
 script = ExtResource("1_tqb83")
+speed = 20.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpaceShip"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -64,13 +48,13 @@ spring_length = 6.0
 
 [node name="Marker3D" type="Marker3D" parent="SpaceShip/SpringArm3D"]
 
-[node name="Asteroid" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 17)
-script = ExtResource("4_kii4b")
+[node name="Marker3D" type="Marker3D" parent="SpaceShip"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Asteroid"]
-mesh = SubResource("SphereMesh_btihd")
-skeleton = NodePath("../..")
+[node name="Spawner" type="Node3D" parent="."]
+script = ExtResource("6_oqd8v")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Asteroid"]
-shape = SubResource("SphereShape3D_uw3eg")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_4xnif")
+script = ExtResource("7_2w2p8")
