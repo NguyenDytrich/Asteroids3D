@@ -24,5 +24,3 @@ func handle_body_entered(body):
 		particles.emitting = true
 		body.destroy.emit()
 		queue_free()
-	else:
-		print("unknown body entered")

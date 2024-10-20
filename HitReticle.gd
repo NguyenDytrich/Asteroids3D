@@ -18,10 +18,11 @@ func _process(delta):
 		get_aim_point()
 
 func _physics_process(delta):
-	var input = Input.get_vector("turn_left", "turn_right", "pitch_up", "pitch_down")
+	var input = Input.get_vector("turn_left", "turn_right", "pitch_down", "pitch_up")
 
 	var default_pos = (get_viewport_rect().size / 2) + Vector2.UP * 72.0
-	position = lerp(position, default_pos + input * 16, delta)
+	position = lerp(position, default_pos + (input * 128.0), 5.0 * delta)
+	# position = default_pos + input * 16
 
 # TODO:
 # When the user fires their ship's weapon, a ray should be cast to determine
@@ -29,7 +30,6 @@ func _physics_process(delta):
 
 func get_aim_point():
 	var reticle_pos = get_viewport_transform()
-	print(reticle_pos)
 
 
 func center_reticle():

@@ -37,7 +37,7 @@ func _physics_process(delta):
 		var projectile = projectile_scene.instantiate()
 		projectile.velocity = 250.0
 		projectile.direction = global_transform.basis.z
-		projectile.position = $Marker3D.global_position
+		projectile.position = $BulletOrigin.global_position
 		get_tree().get_root().add_child(projectile)
 
 

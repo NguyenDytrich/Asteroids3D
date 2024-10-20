@@ -49,7 +49,7 @@ func handle_destroy():
 	if asteroid_size > 4:
 		for i in 2:
 			var frag: Asteroid = asteroid_scene.instantiate() 
-			frag.global_position = global_position
+			frag.global_position = position
 			frag.asteroid_size = asteroid_size - 1.0
 			frag.linear_velocity = Vector3(randf_range(-5.0, 5.0), randf_range(-5.0, 5.0), randf_range(-5.0, 5.0))
 			frag.angular_velocity = Vector3(randf_range(-2.0, 2.0), randf_range(-2.0, 2.0), randf_range(-2.0, 2.0))

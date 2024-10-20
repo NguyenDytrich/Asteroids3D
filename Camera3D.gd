@@ -1,3 +1,4 @@
+@tool
 extends Camera3D
 
 @export
@@ -25,7 +26,7 @@ func get_camera_rotation(d: float):
 	return 1.0 * d / deg_to_rad(max_rotation_diff) # I'm pretty sure I'm supposed to clamp this at 1.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	var distance = (global_position - marker.global_position).length()
 
 	var marker_basis = Basis(marker.global_transform.basis)
