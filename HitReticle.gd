@@ -4,6 +4,8 @@ const RAY_LENGTH = 1000.0
 
 @export var camera: Camera3D
 
+@export var max_aim_diff = 16.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	center_reticle()
@@ -15,6 +17,11 @@ func _process(delta):
 	if Input.is_action_just_pressed("fire"):
 		get_aim_point()
 
+func _physics_process(delta):
+	var input = Input.get_vector("turn_left", "turn_right", "pitch_up", "pitch_down")
+
+	var default_pos = (get_viewport_rect().size / 2) + Vector2.UP * 72.0
+	position = lerp(position, default_pos + input * 16, delta)
 
 # TODO:
 # When the user fires their ship's weapon, a ray should be cast to determine
@@ -26,4 +33,4 @@ func get_aim_point():
 
 
 func center_reticle():
-	position = (get_viewport_rect().size / 2)
+	position = (get_viewport_rect().size / 2) + Vector2.UP * 72.0
