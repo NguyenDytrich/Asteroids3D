@@ -21,11 +21,12 @@ ambient_light_energy = 0.25
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("marker")]
-transform = Transform3D(-1, -5.16436e-08, 1.4189e-07, 1.59872e-14, 0.939693, 0.34202, -1.50996e-07, 0.34202, -0.939693, 8.5134e-07, 2.05212, -5.63816)
+transform = Transform3D(-1, 2.99004e-08, -8.21506e-08, 0, 0.939693, 0.34202, 8.74228e-08, 0.34202, -0.939693, -4.92903e-07, 2.05212, -5.63816)
 environment = SubResource("Environment_ne660")
 current = true
 script = ExtResource("1_ypfkj")
 marker = NodePath("../SpaceShip/SpringArm3D/FollowPos")
+max_rotation_diff = 35.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
 transform = Transform3D(-1, -6.18172e-08, -6.18172e-08, 2.26267e-08, -0.866025, 0.5, -8.44439e-08, 0.5, 0.866026, 5.24537e-07, 3.0018, -5.40733)
@@ -45,12 +46,12 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_vtxrg")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpaceShip"]
-transform = Transform3D(-1, -5.16436e-08, 1.4189e-07, 0, 0.939693, 0.34202, -1.50996e-07, 0.34202, -0.939693, 0, 0, 0)
+transform = Transform3D(-1, 2.99004e-08, -8.21506e-08, 0, 0.939693, 0.34202, 8.74228e-08, 0.34202, -0.939693, 0, 0, 0)
 spring_length = 6.0
 script = ExtResource("5_knfht")
 
 [node name="FollowPos" type="Marker3D" parent="SpaceShip/SpringArm3D"]
-transform = Transform3D(1, -1.06497e-11, 4.26992e-11, -7.43874e-16, 1, -2.69794e-07, 1.24062e-15, 3.06688e-07, 1, 0, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="BulletOrigin" type="Marker3D" parent="SpaceShip"]
 

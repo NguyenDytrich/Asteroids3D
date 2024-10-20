@@ -12,7 +12,7 @@ var camera_follow_speed = 5.0
 
 # In Euler angles
 @export
-var max_rotation_diff = 35.0
+var max_rotation_diff = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,5 +33,7 @@ func _physics_process(delta):
 	# TODO:
 	# Calculate the difference between the angles of this and marker, then adjust speed
 	# to compensate for the rotation
-	global_transform.basis = global_transform.basis.slerp(marker_basis.orthonormalized(), PI * delta)
-	position = position.move_toward(marker.global_position, get_camera_velocity(distance) * delta)
+	# global_transform.basis = global_transform.basis.slerp(marker_basis.orthonormalized(), PI * delta)
+	global_transform.basis = marker_basis
+	# position = position.move_toward(marker.global_position, get_camera_velocity(distance) * delta)
+	position = marker.global_position
